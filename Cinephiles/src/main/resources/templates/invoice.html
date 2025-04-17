@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background-color: #f9f9f9;
+        }
+
+        .invoice-box {
+            padding: 20px;
+            border: 1px solid #eee;
+            background: #fff;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 0 10px #ccc;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .details {
+            margin-top: 20px;
+        }
+
+        .details p {
+            margin: 8px 0;
+        }
+
+        .back-btn {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .back-btn a {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="invoice-box">
+    <h2>🎫 Booking Invoice</h2>
+    <div class="details">
+        <p><strong>Movie:</strong> <span th:text="${invoice.movieName}"></span></p>
+        <p><strong>Seat Numbers:</strong>
+            <span th:each="seat : ${invoice.seatNo}" th:text="${seat}" th:append=", "></span>
+        </p>
+        <p><strong>Price per Seat:</strong>
+            <span th:each="price : ${invoice.price}" th:text="'₹' + ${price}" th:append=", "></span>
+        </p>
+        <p><strong>Total Price:</strong> ₹<span th:text="${invoice.total}"></span></p>
+        <p><strong>Show Date:</strong> <span th:text="${#dates.format(invoice.date, 'dd MMM yyyy')}"></span></p>
+        <p><strong>Time:</strong> <span th:text="${invoice.time}"></span></p>
+        <p><strong>Booking Date:</strong> <span th:text="${#dates.format(invoice.bookingDate, 'dd MMM yyyy')}"></span></p>
+        <p><strong>Booked by:</strong> <span th:text="${invoice.customer.name}"></span></p>
+        <a th:href="@{/download-invoice}" class="btn btn-primary">⬇️ Download Invoice as PDF</a>
+        
+    </div>
+
+    <div class="back-btn">
+        <a th:href="@{/home}">Back to Home</a>
+    </div>
+</div>
+</body>
+</html>
